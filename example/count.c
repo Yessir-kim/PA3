@@ -4,6 +4,13 @@
 #include <glib.h>
 #include "../include/libstemmer.h"
 
+typedef struct
+{
+	char key ;
+	double Neg ;
+	double nonNeg ;
+} TRIPLE ; 
+	
 void 
 print_counter (gpointer key, gpointer value, gpointer userdata) 
 {
@@ -93,6 +100,8 @@ int
 main () 
 {
 
+	TRIPLE store ; // structure declare
+
 	struct sb_stemmer * stemmer ;
 
         stemmer = sb_stemmer_new("english", 0x0) ;
@@ -100,13 +109,13 @@ main ()
 	FILE * f = fopen("../data/train.negative.csv", "r") ;
 	// create two hash table that each negative and non_negative 
 	GHashTable * counter = g_hash_table_new(g_str_hash, g_str_equal) ; // negtive 
+
 	GHashTable * Ncounter = g_hash_table_new(g_str_hash, g_str_equal) ; // non_negative
 
 	
 	char * line = 0x0 ;
 	size_t r ; 
 	size_t n = 0 ;
-	//int count = 0;
 
 	while (getline(&line, &n, f) >= 0) {
 		char * t ;
@@ -120,9 +129,11 @@ main ()
 			convertUpper(t) ;
 	
 			t = checkString(t) ;
-			
+				
 			size = strlen(t) ;
 			
+			if(size == 1) continue ; // delete alphabet form			
+
 			for(i = 0 ; i < size ; i++)
 			{
 				if(t[i] < 0) break ;
@@ -130,8 +141,12 @@ main ()
 			}
 
 			if(i != size) continue ;
-			
+			// Normalization part
 			s = sb_stemmer_stem(stemmer, t, size) ;
+			
+			/* create array and remove word that is, are, am etc..
+ 		      	g_hash_table_remove(counter,"is") ;
+       			*/
 
 			if(isStringnumber(s) == 0)
 			{			
@@ -152,7 +167,7 @@ main ()
 
 	g_hash_table_foreach(counter, print_counter, 0x0) ;
 	
-	printf("but: %d\n", *((int *) g_hash_table_lookup(counter, "servic"))) ;
+	//printf("but: %d\n", *((int *) g_hash_table_lookup(counter, "is"))) ;
 
 	fclose(f) ;
 
@@ -175,6 +190,8 @@ main ()
                         t = checkString(t) ;
 
                         size = strlen(t) ;
+				
+			if(size == 1) continue ; // delete alphabet form
 
                         for(i = 0 ; i < size ; i++)
                         {
@@ -205,7 +222,7 @@ main ()
        	printf("\n") ;
        	g_hash_table_foreach(Ncounter, print_counter, 0x0) ;
 
-       	printf("but: %d\n", *((int *) g_hash_table_lookup(Ncounter, "servic"))) ;
+       	//printf("but: %d\n", *((int *) g_hash_table_lookup(Ncounter, "servic"))) ;
        	fclose(fp) ;
 	sb_stemmer_delete(stemmer) ;
 	
