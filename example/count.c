@@ -116,6 +116,10 @@ main ()
 	char * line = 0x0 ;
 	size_t r ; 
 	size_t n = 0 ;
+	char * word[] = {"has", "had", "her", "who", "them", "been", "their", "our", "were", "are", "did", "she", "too", "an", "am", "as", "at", "be", "by", "do", "im", "or", "us", "we", "was", "they", "this", "and", "in", "is", "me", "my", "on", "of", "so", "what", "where", "when", "how", "will", "it", "if", "there", "that", "pm", "ua"} ;
+	int Wsize = 46;
+	
+
 
 	while (getline(&line, &n, f) >= 0) {
 		char * t ;
@@ -125,7 +129,7 @@ main ()
 		for (t = strtok(line, " \n\t") ; t != 0x0 ; t = strtok(0x0, " \n\t")) {
 			int * d ;
 			int i, size ;
-
+			
 			convertUpper(t) ;
 	
 			t = checkString(t) ;
@@ -140,13 +144,17 @@ main ()
 				if(!(t[i] >=97 && t[i] <= 122)) break ;
 			}
 
-			if(i != size) continue ;
+			if(i != size) continue;
+
 			// Normalization part
 			s = sb_stemmer_stem(stemmer, t, size) ;
-			
-			/* create array and remove word that is, are, am etc..
- 		      	g_hash_table_remove(counter,"is") ;
-       			*/
+
+			for(int j = 0 ; j < Wsize ; j++)
+                        {
+                                if(strcmp(s,word[j]) == 0)
+					g_hash_table_remove(counter,word[j]) ;
+			}
+
 
 			if(isStringnumber(s) == 0)
 			{			
@@ -202,7 +210,13 @@ main ()
                         if(i != size) continue ;
 			
 			s = sb_stemmer_stem(stemmer, t, size) ;
-				
+		
+			for(int j = 0 ; j < Wsize ; j++)
+                        {
+                                if(strcmp(s,word[j]) == 0)
+                                        g_hash_table_remove(Ncounter,word[j]) ;
+                        }
+		
                         if(isStringnumber(s) == 0)
                         {
                                 d = g_hash_table_lookup(Ncounter, s) ;
