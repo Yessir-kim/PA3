@@ -50,6 +50,7 @@ c
 came
 can
 cannot
+cant
 case
 certain
 clear
@@ -57,6 +58,7 @@ come
 could
 d
 did
+didnt
 differ
 do
 doe
@@ -122,13 +124,17 @@ how
 howev
 i
 if
+ill
+im
 import
 in
 interest
 into
 is
+isnt
 it
 itself
+ive
 j
 just
 k
@@ -279,7 +285,6 @@ took
 toward
 turn
 two
-u
 under
 until
 up
@@ -291,6 +296,7 @@ veri
 w
 want
 was
+wasnt
 way
 we
 well
@@ -311,6 +317,7 @@ with
 within
 without
 work
+wont
 would
 x
 y
