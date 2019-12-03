@@ -134,6 +134,7 @@ main ()
         stemmer = sb_stemmer_new("english", 0x0) ;
 	
 	FILE * f = fopen("../data/train.negative.csv", "r") ;
+
 	// create two hash table that each negative and non_negative 
 	GHashTable * counter = g_hash_table_new(g_str_hash, g_str_equal) ; // negtive 
 
