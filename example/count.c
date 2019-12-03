@@ -96,6 +96,32 @@ convertUpper(char *c)
 	//printf("%s\n",c) ;
 }
 
+int
+isStopword(const char *c){
+	char buf[1024];
+	int count = 0;
+    	FILE* fptr = fopen("stopword.txt", "r");
+	while(!feof(fptr)){
+	    fscanf(fptr, "%s\n", buf) ;
+	    if( strcmp(buf, c) == 0 ){
+		fclose(fptr);
+		return 1;
+	    }
+	    if( buf[0] > c[0] )
+		break;
+	    else if( buf[0] == c[0] ){
+		if(buf[1] > c[1]){
+			break;
+		}
+	    }
+	}
+	fclose(fptr);
+	return 0;
+//    return 0;
+}
+
+
+
 int 
 main () 
 {
@@ -147,8 +173,9 @@ main ()
 			/* create array and remove word that is, are, am etc..
  		      	g_hash_table_remove(counter,"is") ;
        			*/
+	//		fclose(f);
 
-			if(isStringnumber(s) == 0)
+			if(isStringnumber(s) == 0 && isStopword(s) == 0)
 			{			
 				d = g_hash_table_lookup(counter, s) ;
 				if (d == NULL) { // new word -> memory allocation
@@ -202,8 +229,10 @@ main ()
                         if(i != size) continue ;
 			
 			s = sb_stemmer_stem(stemmer, t, size) ;
-				
-                        if(isStringnumber(s) == 0)
+		
+//			fclose(fp);
+
+                        if(isStringnumber(s) == 0 && isStopword(s) == 0)
                         {
                                 d = g_hash_table_lookup(Ncounter, s) ;
                                 if (d == NULL) { // new word -> memory allocation
