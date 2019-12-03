@@ -289,7 +289,7 @@ main ()
 	1. list, value // Nlist, Nvalue
 	2. store is Linked list 
 	*/	
-	int num = 0; // smoothing value 
+	int num = 200; // smoothing value 
 	float resize = Ncount * 1.0 / NONcount ; // fit rate 
 	/*
 	printf("%f ",resize) ;
@@ -328,7 +328,7 @@ main ()
 				int VNnegative = 0 ;
 				store->key = Ltemp->data ;
 				//printf("%s ", store->key) ;
-				store->Neg = (num + *Vnegative)*1.0 / (2*num + Ncount) ;			
+				store->Neg = (num + (*Vnegative * 2))*1.0 / (2*num + Ncount) ;			
 				//printf("%f ",store->Neg) ;
 				store->nonNeg = (num + (VNnegative * resize))*1.0 / (2*num + Ncount) ;
 				//store->nonNeg *= resize ;
