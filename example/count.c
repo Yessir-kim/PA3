@@ -353,7 +353,10 @@ main ()
 		}
 	}
 	store->next = NULL ; // set end point 
-				
-	for(; temp->next != NULL ; temp = temp->next)
+	FILE * fst = fopen("model.csv", "w");			
+	fprintf(fst,"word,negative,non-negative\n",temp->key,temp->Neg,temp->nonNeg) ;
+	for(; temp->next != NULL ; temp = temp->next){
 		printf("%s   %.2f    %.2f\n",temp->key,temp->Neg,temp->nonNeg) ;
+		fprintf(fst,"%s,%.2f,%.2f\n",temp->key,temp->Neg,temp->nonNeg) ;
+	}
 }
