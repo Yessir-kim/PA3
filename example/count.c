@@ -221,7 +221,7 @@ main ()
 		Vtemp = Vtemp->next ;
 	}
 
-	g_hash_table_foreach(counter, print_counter, 0x0) ;		 
+	//g_hash_table_foreach(counter, print_counter, 0x0) ;		 
 
 	fclose(f) ;
 
@@ -292,7 +292,7 @@ main ()
                 Vtemp = Vtemp->next ;
         }
 
-       	g_hash_table_foreach(Ncounter, print_counter, 0x0) ;
+       	//g_hash_table_foreach(Ncounter, print_counter, 0x0) ;
 
        	//printf("but: %d\n", *((int *) g_hash_table_lookup(Ncounter, "servic"))) ;
        	fclose(fp) ;
@@ -354,9 +354,10 @@ main ()
 	}
 	store->next = NULL ; // set end point 
 	FILE * fst = fopen("model.csv", "w");			
-	fprintf(fst,"word,negative,non-negative\n",temp->key,temp->Neg,temp->nonNeg) ;
+	fprintf(fst,"word,negative,non-negative\n") ;
 	for(; temp->next != NULL ; temp = temp->next){
-		printf("%s   %.2f    %.2f\n",temp->key,temp->Neg,temp->nonNeg) ;
+		//printf("%s   %.2f    %.2f\n",temp->key,temp->Neg,temp->nonNeg) ;
 		fprintf(fst,"%s,%.2f,%.2f\n",temp->key,temp->Neg,temp->nonNeg) ;
 	}
+	fclose(fst) ;
 }
