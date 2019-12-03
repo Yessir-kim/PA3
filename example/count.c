@@ -99,25 +99,25 @@ convertUpper(char *c)
 
 int
 isStopword(const char *c){
-	char buf[1024];
-	int count = 0;
-    	FILE* fptr = fopen("stopword.txt", "r");
+	char buf[1024] ;
+	int count = 0 ;
+    	FILE* fptr = fopen("stopword.txt", "r") ;
 	while(!feof(fptr)){
 	    fscanf(fptr, "%s\n", buf) ;
 	    if( strcmp(buf, c) == 0 ){
-		fclose(fptr);
-		return 1;
+		fclose(fptr) ;
+		return 1 ;
 	    }
 	    if( buf[0] > c[0] )
-		break;
+		break ;
 	    else if( buf[0] == c[0] ){
 		if(buf[1] > c[1]){
-			break;
+			break ;
 		}
 	    }
 	}
-	fclose(fptr);
-	return 0;
+	fclose(fptr) ;
+	return 0 ;
 //    return 0;
 }
 
