@@ -40,7 +40,6 @@ began
 behind
 be
 best
-better
 between
 big
 both
@@ -63,14 +62,12 @@ differ
 do
 doe
 done
-down
 dure
 e
 each
 earli
 either
 end
-enough
 even
 ever
 everi
@@ -100,9 +97,7 @@ give
 given
 give
 go
-good
 got
-great
 greater
 greatest
 group
@@ -217,7 +212,6 @@ place
 point
 possibl
 present
-problem
 put
 q
 quit

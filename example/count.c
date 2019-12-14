@@ -99,29 +99,58 @@ convertUpper(char *c)
 
 int
 isStopword(const char *c){
-	char buf[1024];
-	int count = 0;
-    	FILE* fptr = fopen("stopword.txt", "r");
+	char buf[1024] ;
+	int count = 0 ;
+    	FILE* fptr = fopen("stopword.txt", "r") ;
 	while(!feof(fptr)){
 	    fscanf(fptr, "%s\n", buf) ;
 	    if( strcmp(buf, c) == 0 ){
-		fclose(fptr);
-		return 1;
+		fclose(fptr) ;
+		return 1 ;
 	    }
 	    if( buf[0] > c[0] )
-		break;
+		break ;
 	    else if( buf[0] == c[0] ){
 		if(buf[1] > c[1]){
-			break;
+			break ;
 		}
 	    }
 	}
-	fclose(fptr);
-	return 0;
+	fclose(fptr) ;
+	return 0 ;
 //    return 0;
 }
 
 
+char * removeSameword(char * sameword){
+	char * t;
+	char check[1024][1024];
+	int count = 0;
+	int sw = 0;
+	//2차원 배열 공간 할당
+	/*check = (char **)malloc(1024 * sizeof(char *));
+	for (int i = 0; i < 1024; i++){
+		check[i] = (char *)malloc(1024 * sizeof(char *));
+	}*/
+
+	for (t = strtok(sameword, " \n\t") ; t != 0x0 ; t = strtok(0x0, " \n\t")) {
+	    	sw = 0;
+	    	for(int i = 0; i<count; i++){
+		    if(strcmp(t, check[i]) == 0)
+			sw = 1;
+		}
+		if(sw == 1) continue;
+	    	strcpy(check[count],t);
+		count ++ ;
+	}
+	char *returnword;
+	returnword = (char *)malloc(100000 * sizeof(char *));
+	for(int i=0; i<count; i++){
+		strcat(returnword, check[i]);
+		strcat(returnword, " ");
+	}
+	return returnword;
+}
 
 int 
 main () 
@@ -149,7 +178,7 @@ main ()
 	GList * Nlist = NULL ;
 	GList * Nvalue = NULL ;	
 	GList * Vtemp = NULL ;
-	int k = 50 ; // set delete point
+	int k = 15 ; // set delete point
 	int Ncount = 0 ;
 	int NONcount = 0 ;	
 
@@ -158,7 +187,11 @@ main ()
 		char * _line = line ;
 		const char * s;
 		Ncount++ ; // Message count
-		// Tokeniztion part		
+		// Tokeniztion part	
+	//추가	
+		char * sameword = line;
+		line = removeSameword(sameword);
+	//추가 	
 		for (t = strtok(line, " \n\t") ; t != 0x0 ; t = strtok(0x0, " \n\t")) {
 			int * d ;
 			int i, size ;
@@ -170,13 +203,13 @@ main ()
 			size = strlen(t) ;
 			
 			if(size == 1) continue ; // delete alphabet form			
-
+			
 			for(i = 0 ; i < size ; i++)
 			{
 				if(t[i] < 0) break ;
 				if(!(t[i] >=97 && t[i] <= 122)) break ;
 			}
-
+			
 			if(i != size) continue;
 
 			// Normalization part
@@ -203,8 +236,9 @@ main ()
 		free(_line) ;
 		line = 0x0 ;
 	}
-
-	//printf("but: %d\n", *((int *) g_hash_table_lookup(counter, "is"))) ;
+//	int checking;
+//	checking=*((int *) g_hash_table_lookup(counter, "the"));
+//	printf("but: %d\n", checking) ;
 	
 	list = g_hash_table_get_keys(counter) ;
 	
@@ -306,7 +340,7 @@ main ()
 	2. store is Linked list 
 	*/	
 	int num = 200; // smoothing value 
-	float resize = Ncount * 1.0 / NONcount ; // fit rate 
+	//float = Ncount * 1.0 / NONcount ; // fit rate 
 	/*
 	printf("%f ",resize) ;
 	printf("%d ", Ncount) ;
@@ -330,7 +364,7 @@ main ()
 				//printf("%s ", store->key) ;
 				store->Neg = (num + *Vnegative)*1.0 / (2*num + Ncount) ;
 				//printf("%f ",store->Neg) ;
-				store->nonNeg = (num + (*VNnegative * resize))*1.0 / (2*num + Ncount) ;
+				store->nonNeg = (num + (*VNnegative))*1.0 / (2*num + Ncount) ;
 				//store->nonNeg *= resize ;
 				//printf("%f\n",store->nonNeg) ;
 				store->next = (triple *)malloc(sizeof(triple)) ;
@@ -344,21 +378,46 @@ main ()
 				int VNnegative = 0 ;
 				store->key = Ltemp->data ;
 				//printf("%s ", store->key) ;
-				store->Neg = (num + (*Vnegative * 2))*1.0 / (2*num + Ncount) ;			
+				store->Neg = (num + (*Vnegative))*1.0 / (2*num + Ncount) ;			
 				//printf("%f ",store->Neg) ;
-				store->nonNeg = (num + (VNnegative * resize))*1.0 / (2*num + Ncount) ;
+				store->nonNeg = (num + (VNnegative))*1.0 / (2*num + Ncount) ;
 				//store->nonNeg *= resize ;
 				//printf("%f\n",store->nonNeg) ;	
 				store->next = (triple *)malloc(sizeof(triple)) ;
 				store = store->next ;
 		}
 	}
+	
+	for(GList *Ntemp = Nlist ; Ntemp != NULL ; Ntemp = Ntemp->next)
+        {
+                char * Nnegative = Ntemp->data ;
+                int * VNnegative = (int*)g_hash_table_lookup(Ncounter, Ntemp->data) ;
+                GList * Ltemp = list ;
+
+                while(Ltemp != NULL)
+                {
+                        if(strcmp(Nnegative, Ltemp->data) == 0) break ;
+                        Ltemp = Ltemp->next ;
+                }
+                if(Ltemp == NULL)
+                {
+                        int Vnegative = 0 ;
+                        store->key = Ntemp->data ;
+                        //printf("%s ", store->key) ;
+                        store->Neg = (num + (Vnegative))*1.0 / (2*num + Ncount) ;
+                        //printf("%f ",store->Neg) ;
+                        store->nonNeg = (num + (*VNnegative))*1.0 / (2*num + Ncount) ;
+                        //store->nonNeg *= resize ;
+                        //printf("%f\n",store->nonNeg) ;
+                        store->next = (triple *)malloc(sizeof(triple)) ;
+                        store = store->next ;
+                }
+        }
 	store->next = NULL ; // set end point 
 	FILE * fst = fopen("model.csv", "w");			
 	fprintf(fst,"word,negative,non-negative\n") ;
 	for(; temp->next != NULL ; temp = temp->next){
-		printf("%s   %.2f    %.2f\n",temp->key,temp->Neg,temp->nonNeg) ;
-		fprintf(fst,"%s,%.2f,%.2f\n",temp->key,temp->Neg,temp->nonNeg) ;
+		//printf("%s   %.2f    %.2f\n",temp->key,temp->Neg,temp->nonNeg) ;
+		fprintf(fst,"%s,%.5f,%.5f\n",temp->key,temp->Neg,temp->nonNeg) ;
 	}
-	fclose(fst);
 }
