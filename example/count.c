@@ -386,6 +386,32 @@ main ()
 				store = store->next ;
 		}
 	}
+	
+	for(GList *Ntemp = Nlist ; Ntemp != NULL ; Ntemp = Ntemp->next)
+        {
+                char * Nnegative = Ntemp->data ;
+                int * VNnegative = (int*)g_hash_table_lookup(Ncounter, Ntemp->data) ;
+                GList * Ltemp = list ;
+
+                while(Ltemp != NULL)
+                {
+                        if(strcmp(Nnegative, Ltemp->data) == 0) break ;
+                        Ltemp = Ltemp->next ;
+                }
+                if(Ltemp == NULL)
+                {
+                        int Vnegative = 0 ;
+                        store->key = Ntemp->data ;
+                        //printf("%s ", store->key) ;
+                        store->Neg = (num + (Vnegative))*1.0 / (2*num + Ncount) ;
+                        //printf("%f ",store->Neg) ;
+                        store->nonNeg = (num + (*VNnegative))*1.0 / (2*num + Ncount) ;
+                        //store->nonNeg *= resize ;
+                        //printf("%f\n",store->nonNeg) ;
+                        store->next = (triple *)malloc(sizeof(triple)) ;
+                        store = store->next ;
+                }
+        }
 	store->next = NULL ; // set end point 
 	FILE * fst = fopen("model.csv", "w");			
 	fprintf(fst,"word,negative,non-negative\n") ;
