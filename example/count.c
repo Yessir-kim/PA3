@@ -186,7 +186,7 @@ main ()
  		      	g_hash_table_remove(counter,"is") ;
        			*/
 
-			if(isStringnumber(s) == 0 && isStopword(s) == 0)
+			if(isStringnumber(s) == 0&& isStopword(s) == 0)
 			{			
 				d = g_hash_table_lookup(counter, s) ;
 				if (d == NULL) { // new word -> memory allocation
