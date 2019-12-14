@@ -223,7 +223,7 @@ int main(int argc, char** argv)
         
         // printf("probability : %f\n",prob);
 
-        if(prob > 0.65){
+        if(prob > 0.7){
             printf("The sentence is Negative\n");
 
         }
