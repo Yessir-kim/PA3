@@ -305,7 +305,7 @@ main ()
 	2. store is Linked list 
 	*/	
 	int num = 200; // smoothing value 
-	float resize = Ncount * 1.0 / NONcount ; // fit rate 
+	//float = Ncount * 1.0 / NONcount ; // fit rate 
 	/*
 	printf("%f ",resize) ;
 	printf("%d ", Ncount) ;
@@ -329,7 +329,7 @@ main ()
 				//printf("%s ", store->key) ;
 				store->Neg = (num + *Vnegative)*1.0 / (2*num + Ncount) ;
 				//printf("%f ",store->Neg) ;
-				store->nonNeg = (num + (*VNnegative * resize))*1.0 / (2*num + Ncount) ;
+				store->nonNeg = (num + (*VNnegative))*1.0 / (2*num + Ncount) ;
 				//store->nonNeg *= resize ;
 				//printf("%f\n",store->nonNeg) ;
 				store->next = (triple *)malloc(sizeof(triple)) ;
@@ -345,7 +345,7 @@ main ()
 				//printf("%s ", store->key) ;
 				store->Neg = (num + (*Vnegative * 2))*1.0 / (2*num + Ncount) ;			
 				//printf("%f ",store->Neg) ;
-				store->nonNeg = (num + (VNnegative * resize))*1.0 / (2*num + Ncount) ;
+				store->nonNeg = (num + (VNnegative))*1.0 / (2*num + Ncount) ;
 				//store->nonNeg *= resize ;
 				//printf("%f\n",store->nonNeg) ;	
 				store->next = (triple *)malloc(sizeof(triple)) ;
