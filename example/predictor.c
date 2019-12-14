@@ -130,12 +130,9 @@ int main(int argc, char** argv)
     
     FILE *fp = fopen("sentence.csv", "w");
     
-    do 
-    {
-		scanf("%s", buf) ;
-
-		fprintf(fp,"%s\n", s, buf) ;
-	} while (strcmp(buf, "exit") != 0) ;
+    fgets(buf, sizeof(buf)/sizeof(char), stdin);;
+	
+    fprintf(fp,"%s\n", s, buf) ;
     
     fclose(fp) ;
     
