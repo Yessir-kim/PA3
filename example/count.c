@@ -169,13 +169,13 @@ main ()
 			size = strlen(t) ;
 			
 			if(size == 1) continue ; // delete alphabet form			
-
+			
 			for(i = 0 ; i < size ; i++)
 			{
 				if(t[i] < 0) break ;
 				if(!(t[i] >=97 && t[i] <= 122)) break ;
 			}
-
+			
 			if(i != size) continue;
 
 			// Normalization part
@@ -221,7 +221,7 @@ main ()
 		Vtemp = Vtemp->next ;
 	}
 
-	//g_hash_table_foreach(counter, print_counter, 0x0) ;		 
+	g_hash_table_foreach(counter, print_counter, 0x0) ;		 
 
 	fclose(f) ;
 
@@ -292,7 +292,7 @@ main ()
                 Vtemp = Vtemp->next ;
         }
 
-       	//g_hash_table_foreach(Ncounter, print_counter, 0x0) ;
+       	g_hash_table_foreach(Ncounter, print_counter, 0x0) ;
 
        	//printf("but: %d\n", *((int *) g_hash_table_lookup(Ncounter, "servic"))) ;
        	fclose(fp) ;
@@ -359,5 +359,4 @@ main ()
 		//printf("%s   %.2f    %.2f\n",temp->key,temp->Neg,temp->nonNeg) ;
 		fprintf(fst,"%s,%.2f,%.2f\n",temp->key,temp->Neg,temp->nonNeg) ;
 	}
-	fclose(fst) ;
 }
