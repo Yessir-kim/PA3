@@ -5,7 +5,9 @@ Naive Bayes Text Classifier
 ## Introduction
 
 It is a C program for predicting whether the sentiment of a given sentence is negative or not
+
 • trainer: build a Naive Bayes model from the Twitter Airline dataset
+
 • predictor: read a sentence and returns either ‘Negative’ or ‘Non-negative’
 
 ### To run the program
