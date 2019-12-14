@@ -177,7 +177,7 @@ main ()
 	GList * Nlist = NULL ;
 	GList * Nvalue = NULL ;	
 	GList * Vtemp = NULL ;
-	int k = 50 ; // set delete point
+	int k = 15 ; // set delete point
 	int Ncount = 0 ;
 	int NONcount = 0 ;	
 
@@ -417,6 +417,6 @@ main ()
 	fprintf(fst,"word,negative,non-negative\n") ;
 	for(; temp->next != NULL ; temp = temp->next){
 		//printf("%s   %.2f    %.2f\n",temp->key,temp->Neg,temp->nonNeg) ;
-		fprintf(fst,"%s,%.2f,%.2f\n",temp->key,temp->Neg,temp->nonNeg) ;
+		fprintf(fst,"%s,%.5f,%.5f\n",temp->key,temp->Neg,temp->nonNeg) ;
 	}
 }
