@@ -12,7 +12,13 @@ It is a C program for predicting whether the sentiment of a given sentence is ne
 
 ### To run the program
 
-First compile all the programs.
+First go to "example" repository.
+
+```
+cd example
+```
+
+compile all the programs.
 
 ```
 make
