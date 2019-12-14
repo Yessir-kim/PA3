@@ -122,6 +122,35 @@ isStopword(const char *c){
 }
 
 
+char * removeSameword(char * sameword){
+	char * t;
+	char check[1024][1024];
+	int count = 0;
+	int sw = 0;
+	//2차원 배열 공간 할당
+	/*check = (char **)malloc(1024 * sizeof(char *));
+	for (int i = 0; i < 1024; i++){
+		check[i] = (char *)malloc(1024 * sizeof(char *));
+	}*/
+
+	for (t = strtok(sameword, " \n\t") ; t != 0x0 ; t = strtok(0x0, " \n\t")) {
+	    	sw = 0;
+	    	for(int i = 0; i<count; i++){
+		    if(strcmp(t, check[i]) == 0)
+			sw = 1;
+		}
+		if(sw == 1) continue;
+	    	strcpy(check[count],t);
+		count ++ ;
+	}
+	char *returnword;
+	returnword = (char *)malloc(100000 * sizeof(char *));
+	for(int i=0; i<count; i++){
+		strcat(returnword, check[i]);
+		strcat(returnword, " ");
+	}
+	return returnword;
+}
 
 int 
 main () 
@@ -157,7 +186,11 @@ main ()
 		char * _line = line ;
 		const char * s;
 		Ncount++ ; // Message count
-		// Tokeniztion part		
+		// Tokeniztion part	
+	//추가	
+		char * sameword = line;
+		line = removeSameword(sameword);
+	//추가 	
 		for (t = strtok(line, " \n\t") ; t != 0x0 ; t = strtok(0x0, " \n\t")) {
 			int * d ;
 			int i, size ;
@@ -202,8 +235,9 @@ main ()
 		free(_line) ;
 		line = 0x0 ;
 	}
-
-	//printf("but: %d\n", *((int *) g_hash_table_lookup(counter, "is"))) ;
+//	int checking;
+//	checking=*((int *) g_hash_table_lookup(counter, "the"));
+//	printf("but: %d\n", checking) ;
 	
 	list = g_hash_table_get_keys(counter) ;
 	
