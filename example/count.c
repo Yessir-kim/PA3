@@ -256,7 +256,7 @@ main ()
 		Vtemp = Vtemp->next ;
 	}
 
-	g_hash_table_foreach(counter, print_counter, 0x0) ;		 
+	//g_hash_table_foreach(counter, print_counter, 0x0) ;		 
 
 	fclose(f) ;
 
@@ -327,7 +327,7 @@ main ()
                 Vtemp = Vtemp->next ;
         }
 
-       	g_hash_table_foreach(Ncounter, print_counter, 0x0) ;
+       	//g_hash_table_foreach(Ncounter, print_counter, 0x0) ;
 
        	//printf("but: %d\n", *((int *) g_hash_table_lookup(Ncounter, "servic"))) ;
        	fclose(fp) ;
