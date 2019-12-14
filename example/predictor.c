@@ -124,11 +124,22 @@ int main(int argc, char** argv)
     //***************************************************************************
     struct sb_stemmer * stemmer ;
     stemmer = sb_stemmer_new("english", 0x0) ;
-    
+    char buf[1024] ;
     // FILE * f1 = fopen("../data/test.negative.csv", "r");
     // FILE * f2 = fopen("../data/test.non-negative.csv", "r");
+    
+    FILE *fp = fopen("sentence.csv", "w");
+    
+    do 
+    {
+		scanf("%s", buf) ;
 
-    FILE *fp = fopen(argv[1], "r");
+		fprintf(fp,"%s\n", s, buf) ;
+	} while (strcmp(buf, "exit") != 0) ;
+    
+    fclose(fp) ;
+    
+    FILE *fp = fopen("sentence.csv", "r");
 
     char * line = 0x0 ;
 
