@@ -343,7 +343,7 @@ main ()
 				int VNnegative = 0 ;
 				store->key = Ltemp->data ;
 				//printf("%s ", store->key) ;
-				store->Neg = (num + (*Vnegative * 2))*1.0 / (2*num + Ncount) ;			
+				store->Neg = (num + (*Vnegative))*1.0 / (2*num + Ncount) ;			
 				//printf("%f ",store->Neg) ;
 				store->nonNeg = (num + (VNnegative))*1.0 / (2*num + Ncount) ;
 				//store->nonNeg *= resize ;
