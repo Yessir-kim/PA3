@@ -31,13 +31,13 @@ It reads the given data files and generate model.csv which is a Naive Bayes mode
 It reads  model.csv and receive a sentence (one line of text) from the standard input to print out the prediction result as either ‘Negative’ or ‘Nonnegative’
 
 ```
-./predictor <textfile name> 
+./predictor
 ```
 For example, 
 
 ```
-./predictor text1.txt
-Your sentence : The chairs were dirty and people were rude
+./predictor
+Your sentence : The chairs were dirty and people were rude <- user input (stdin)
  
 The sentence is Negative
 ```
