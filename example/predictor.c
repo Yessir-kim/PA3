@@ -128,13 +128,14 @@ int main(int argc, char** argv)
     // FILE * f1 = fopen("../data/test.negative.csv", "r");
     // FILE * f2 = fopen("../data/test.non-negative.csv", "r");
     
-    FILE *fp = fopen("sentence.csv", "w");
+    FILE *fp1 = fopen("sentence.csv", "w");
     
     fgets(buf, sizeof(buf)/sizeof(char), stdin);;
-	
-    fprintf(fp,"%s\n", s, buf) ;
+    buf[strlen(buf)-1] = '\0';
+
+    fprintf(fp1,"%s\n", buf) ;
     
-    fclose(fp) ;
+    fclose(fp1) ;
     
     FILE *fp = fopen("sentence.csv", "r");
 
@@ -142,13 +143,13 @@ int main(int argc, char** argv)
 
     int count = 0;
     
-    while (getline(&line, &n, fp) >= 0) {
-      char * t ;
+    while (getline(&line, &n, fp) > 0) {
+	char * t ;
       char * _line = line ;
       const char * s ;
       int i, size;
 
-      printf("Your sentence : %s \n", line);
+      printf("Your sentence : %s\n", line);
 
         GHashTable * sentenceHash = g_hash_table_new(g_str_hash, g_str_equal) ;
       for (t = strtok(line, " \n\t") ; t != 0x0 ; t = strtok(0x0, " \n\t"))
