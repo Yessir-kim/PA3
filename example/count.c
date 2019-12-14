@@ -99,25 +99,25 @@ convertUpper(char *c)
 
 int
 isStopword(const char *c){
-	char buf[1024];
-	int count = 0;
-    	FILE* fptr = fopen("stopword.txt", "r");
+	char buf[1024] ;
+	int count = 0 ;
+    	FILE* fptr = fopen("stopword.txt", "r") ;
 	while(!feof(fptr)){
 	    fscanf(fptr, "%s\n", buf) ;
 	    if( strcmp(buf, c) == 0 ){
-		fclose(fptr);
-		return 1;
+		fclose(fptr) ;
+		return 1 ;
 	    }
 	    if( buf[0] > c[0] )
-		break;
+		break ;
 	    else if( buf[0] == c[0] ){
 		if(buf[1] > c[1]){
-			break;
+			break ;
 		}
 	    }
 	}
-	fclose(fptr);
-	return 0;
+	fclose(fptr) ;
+	return 0 ;
 //    return 0;
 }
 
@@ -202,13 +202,13 @@ main ()
 			size = strlen(t) ;
 			
 			if(size == 1) continue ; // delete alphabet form			
-
+			
 			for(i = 0 ; i < size ; i++)
 			{
 				if(t[i] < 0) break ;
 				if(!(t[i] >=97 && t[i] <= 122)) break ;
 			}
-
+			
 			if(i != size) continue;
 
 			// Normalization part
@@ -339,7 +339,7 @@ main ()
 	2. store is Linked list 
 	*/	
 	int num = 200; // smoothing value 
-	float resize = Ncount * 1.0 / NONcount ; // fit rate 
+	//float = Ncount * 1.0 / NONcount ; // fit rate 
 	/*
 	printf("%f ",resize) ;
 	printf("%d ", Ncount) ;
@@ -363,7 +363,7 @@ main ()
 				//printf("%s ", store->key) ;
 				store->Neg = (num + *Vnegative)*1.0 / (2*num + Ncount) ;
 				//printf("%f ",store->Neg) ;
-				store->nonNeg = (num + (*VNnegative * resize))*1.0 / (2*num + Ncount) ;
+				store->nonNeg = (num + (*VNnegative))*1.0 / (2*num + Ncount) ;
 				//store->nonNeg *= resize ;
 				//printf("%f\n",store->nonNeg) ;
 				store->next = (triple *)malloc(sizeof(triple)) ;
@@ -377,9 +377,9 @@ main ()
 				int VNnegative = 0 ;
 				store->key = Ltemp->data ;
 				//printf("%s ", store->key) ;
-				store->Neg = (num + (*Vnegative * 2))*1.0 / (2*num + Ncount) ;			
+				store->Neg = (num + (*Vnegative))*1.0 / (2*num + Ncount) ;			
 				//printf("%f ",store->Neg) ;
-				store->nonNeg = (num + (VNnegative * resize))*1.0 / (2*num + Ncount) ;
+				store->nonNeg = (num + (VNnegative))*1.0 / (2*num + Ncount) ;
 				//store->nonNeg *= resize ;
 				//printf("%f\n",store->nonNeg) ;	
 				store->next = (triple *)malloc(sizeof(triple)) ;
@@ -390,8 +390,7 @@ main ()
 	FILE * fst = fopen("model.csv", "w");			
 	fprintf(fst,"word,negative,non-negative\n") ;
 	for(; temp->next != NULL ; temp = temp->next){
-		printf("%s   %.2f    %.2f\n",temp->key,temp->Neg,temp->nonNeg) ;
+		//printf("%s   %.2f    %.2f\n",temp->key,temp->Neg,temp->nonNeg) ;
 		fprintf(fst,"%s,%.2f,%.2f\n",temp->key,temp->Neg,temp->nonNeg) ;
 	}
-	fclose(fst);
 }
