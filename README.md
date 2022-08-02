@@ -51,7 +51,7 @@ The sentence is Negative
 
 ## Team Members 
 
-Tean32 : 
+Team32 : 
 * 김영빈(21600108)
 * 손한나(21800389)
 * 윤수빈(21800491) 
